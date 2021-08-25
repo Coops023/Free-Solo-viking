@@ -3,7 +3,7 @@ window.onload = () => {
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
     let frameCount = null;
-    let character = new Character(ctx, 250, 450)
+    let character = new Character(ctx, 350, 400)
     let bgImg = new Background(ctx)
     let obstaclesId = null;
     let obstaclesArray = [];
@@ -14,7 +14,8 @@ window.onload = () => {
     let startPage = document.getElementById('start-page')
     let gamePage = document.getElementById('game-page')
     let endPage = document.getElementById('end-page')
-    const score = {
+    let gameOverState = false
+    let score = {
         points: 0,
         draw: function () {
             ctx.font = '50px Rampart One';
@@ -22,6 +23,8 @@ window.onload = () => {
             ctx.fillText('Score: ' + this.points, 300, 580);
         }
     };
+
+
     //event listners
     startButton.addEventListener('click', () => {
         start()
@@ -47,10 +50,11 @@ window.onload = () => {
         }, 6000);
     })
     restartButton.addEventListener('click', () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        start()
-
+        restart()
     })
+
+
+
     window.addEventListener('keydown', keyDownListner, false);
     function keyDownListner(event) {
         character.keyPresses[event.key] = true;
@@ -65,12 +69,28 @@ window.onload = () => {
         gamePage.style.display = 'block'
         endPage.style.display = 'none'
     }
-
     function gameOver() {
         startPage.style.display = 'none'
         gamePage.style.display = 'none'
         endPage.style.display = 'flex'
+        gameOverState = true;
+        window.cancelAnimationFrame(gameLoop)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        obstaclesArray = []
     }
+
+    function restart() {
+        startPage.style.display = 'none'
+        gamePage.style.display = 'block'
+        endPage.style.display = 'none'
+        gameOverState = true;
+        character.positionX = 350
+        character.positionY = 400
+        score.points = 0
+        start()
+    }
+
+
 
     function bonusCheck(bonus) {
         let bonusContact =
@@ -92,16 +112,18 @@ window.onload = () => {
             character.positionY + character.scaledHeight > obstacle.y;
         if (obstacleCollision) {
             obstaclesArray.splice(obstacle, 1)
-            clearInterval(obstaclesId);
             cancelAnimationFrame(frameCount);
             gameOver()
         }
     }
 
     function gameLoop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
         bgImg.draw()
-        score.draw();
+        character.draw()
+        score.draw()
+        character.move()
+
         obstaclesArray.forEach((eachObstacle) => {
             eachObstacle.draw();
             eachObstacle.move();
@@ -113,8 +135,7 @@ window.onload = () => {
             eachBonus.move();
             bonusCheck(eachBonus);
         });
-        character.draw();
-        character.move()
+
         window.requestAnimationFrame(gameLoop);
     }
 
