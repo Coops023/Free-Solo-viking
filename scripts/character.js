@@ -1,5 +1,5 @@
 const characterImg = document.createElement('img');
-characterImg.src = '/assets/climber-images.png';
+characterImg.src = 'assets/climber-images.png';
 
 
 
@@ -53,7 +53,7 @@ class Character {
             this.positionY -= 1;
             this.hasMoved = true;
         }
-        
+
         if (this.hasMoved) {
             this.frameCount++;
             if (this.frameCount >= this.frameLimit) {
