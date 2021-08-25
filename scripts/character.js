@@ -37,34 +37,23 @@ class Character {
 
     move() {
 
-        if (this.keyPresses.w) {
-            this.positionY += -1;
-            this.hasMoved = true;
-        } else if (!this.keyPresses.w) {
-            this.hasMoved = false
-        }
         if (this.keyPresses.d) {
             this.positionX += 1;
             this.hasMoved = true;
-        } else if (this.keyPresses.d === false) {
-            this.hasMoved = false
         }
         if (this.keyPresses.s) {
             this.positionY += 1;
             this.hasMoved = true;
-        } else if (!this.keyPresses.s === false) {
-            this.hasMoved = false
         }
         if (this.keyPresses.a) {
-            this.positionX += -1;
+            this.positionX -= 1;
             this.hasMoved = true;
-        } else if (!this.keyPresses.a === false) {
-            this.hasMoved = false
         }
-
-
-
-
+        if (this.keyPresses.w) {
+            this.positionY -= 1;
+            this.hasMoved = true;
+        }
+        
         if (this.hasMoved) {
             this.frameCount++;
             if (this.frameCount >= this.frameLimit) {
@@ -74,6 +63,7 @@ class Character {
                     this.currentLoopIndex = 0;
                 }
             }
+            this.hasMoved = false
         }
 
 
