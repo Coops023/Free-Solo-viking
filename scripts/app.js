@@ -4,8 +4,8 @@ window.onload = () => {
     let ctx = canvas.getContext('2d');
     let frameCount = null;
     let character = new Character(ctx, 350, 400)
+    let bgImg = new Background(ctx)
     let obstaclesArray = [];
-    let bonusId = null;
     let bonusArray = [];
     let startButton = document.getElementById('start-button')
     let restartButton = document.getElementById('restart-button')
@@ -23,7 +23,6 @@ window.onload = () => {
 
 
     //event listners
-    //start
     startButton.addEventListener('click', () => {
         start()
         gameLoop()
@@ -47,12 +46,11 @@ window.onload = () => {
             bonusArray.push(bonus);
         }, 6000);
     })
-    //restart
     restartButton.addEventListener('click', () => {
         restart()
     })
 
-    // character movement key listeners
+    //movement key listeners
     window.addEventListener('keydown', keyDownListner, false);
     function keyDownListner(event) {
         character.keyPresses[event.key] = true;
