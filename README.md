@@ -1,3 +1,5 @@
+<h1>Link to play</h1>
+<a href="https://coops023.github.io/Free-Solo-viking/#">Play me!</a>
 <h1>title</h1>
 <h2>Description</h2>
 <p></p>
