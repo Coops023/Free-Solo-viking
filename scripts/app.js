@@ -10,8 +10,10 @@ window.onload = () => {
     let bonusId = null;
     let bonusArray = [];
     let startButton = document.getElementById('start-button')
+    let restartButton = document.getElementById('restart-button')
     let startPage = document.getElementById('start-page')
     let gamePage = document.getElementById('game-page')
+    let endPage = document.getElementById('end-page')
     const score = {
         points: 0,
         draw: function () {
@@ -43,6 +45,10 @@ window.onload = () => {
             );
             bonusArray.push(bonus);
         }, 6000);
+    })
+    restartButton.addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        start()
 
     })
     window.addEventListener('keydown', keyDownListner, false);
@@ -57,7 +63,15 @@ window.onload = () => {
     function start() {
         startPage.style.display = 'none'
         gamePage.style.display = 'block'
+        endPage.style.display = 'none'
     }
+
+    function gameOver() {
+        startPage.style.display = 'none'
+        gamePage.style.display = 'none'
+        endPage.style.display = 'flex'
+    }
+
     function bonusCheck(bonus) {
         let bonusContact =
             character.positionX < bonus.x + bonus.width &&
@@ -80,7 +94,7 @@ window.onload = () => {
             obstaclesArray.splice(obstacle, 1)
             clearInterval(obstaclesId);
             cancelAnimationFrame(frameCount);
-            window.location.reload();
+            gameOver()
         }
     }
 
@@ -92,6 +106,7 @@ window.onload = () => {
             eachObstacle.draw();
             eachObstacle.move();
             checkCollisions(eachObstacle);
+
         });
         bonusArray.forEach((eachBonus) => {
             eachBonus.draw();
