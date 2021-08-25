@@ -24,6 +24,15 @@
     <li>draw(){}</li>
     <li>move(){}</li>
 </ul>
+<h2>app.js</h2>
+<ul>
+    <li>start(){}</li>
+    <li>gameOver(){}</li>
+    <li>restart(){}</li>
+    <li>bonusCheck(){}</li>
+    <li>checkCollisions(){}</li>
+    <li>gameLoop(){}</li>
+</ul>
 <h2>background.js</h2>
 <ul>
     <li>draw(){}</li>
@@ -46,12 +55,8 @@
 </ul>
 <h2>Task</h2>
 <ul>
-    <li>?</li>
-    <li>?</li>
-    <li>?</li>
-    <li>?</li>
-    <li>?</li>
-    <li>?</li>
+    <li>add audio</li>
+    <li>add difficulty levels</li>
 </ul>
 
 <h2>Additional links</h2>

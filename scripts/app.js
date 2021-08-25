@@ -1,11 +1,9 @@
 window.onload = () => {
-    //variables 
+
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
     let frameCount = null;
     let character = new Character(ctx, 350, 400)
-    let bgImg = new Background(ctx)
-    let obstaclesId = null;
     let obstaclesArray = [];
     let bonusId = null;
     let bonusArray = [];
@@ -14,7 +12,6 @@ window.onload = () => {
     let startPage = document.getElementById('start-page')
     let gamePage = document.getElementById('game-page')
     let endPage = document.getElementById('end-page')
-    let gameOverState = false
     let score = {
         points: 0,
         draw: function () {
@@ -26,6 +23,7 @@ window.onload = () => {
 
 
     //event listners
+    //start
     startButton.addEventListener('click', () => {
         start()
         gameLoop()
@@ -49,12 +47,12 @@ window.onload = () => {
             bonusArray.push(bonus);
         }, 6000);
     })
+    //restart
     restartButton.addEventListener('click', () => {
         restart()
     })
 
-
-
+    // character movement key listeners
     window.addEventListener('keydown', keyDownListner, false);
     function keyDownListner(event) {
         character.keyPresses[event.key] = true;
@@ -73,7 +71,6 @@ window.onload = () => {
         startPage.style.display = 'none'
         gamePage.style.display = 'none'
         endPage.style.display = 'flex'
-        gameOverState = true;
         window.cancelAnimationFrame(gameLoop)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         obstaclesArray = []
@@ -83,7 +80,6 @@ window.onload = () => {
         startPage.style.display = 'none'
         gamePage.style.display = 'block'
         endPage.style.display = 'none'
-        gameOverState = true;
         character.positionX = 350
         character.positionY = 400
         score.points = 0
@@ -92,8 +88,6 @@ window.onload = () => {
         start()
 
     }
-
-
 
     function bonusCheck(bonus) {
         let bonusContact =
