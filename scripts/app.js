@@ -87,7 +87,10 @@ window.onload = () => {
         character.positionX = 350
         character.positionY = 400
         score.points = 0
+        obstaclesArray = []
+        bonusArray = []
         start()
+
     }
 
 
