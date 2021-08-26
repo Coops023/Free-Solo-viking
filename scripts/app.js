@@ -2,11 +2,15 @@ window.onload = () => {
 
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
-    let frameCount = null;
+    const screamSound = new Audio('assets/screaming.mp3')
+    const startSound = new Audio('assets/start.mp3')
+    const bonusSound = new Audio('assets/bonus.mp3')
+
     let character = new Character(ctx, 350, 400)
     let bgImg = new Background(ctx)
     let obstaclesArray = [];
     let bonusArray = [];
+
     let startButton = document.getElementById('start-button')
     let restartButton = document.getElementById('restart-button')
     let startPage = document.getElementById('start-page')
@@ -26,10 +30,11 @@ window.onload = () => {
     startButton.addEventListener('click', () => {
         start()
         gameLoop()
+        startSound.play()
         obstaclesId = setInterval(function () {
             let obstacle = new Obstacle(
                 ctx,
-                Math.random() * canvas.width,
+                Math.random() * canvas.width - 20,
                 0,
                 Math.ceil(Math.random() * 3)
             );
@@ -94,6 +99,7 @@ window.onload = () => {
             character.positionY < bonus.y + bonus.height &&
             character.positionY + character.scaledHeight > bonus.y;
         if (bonusContact) {
+            bonusSound.play()
             bonusArray.splice(bonus, 1)
             score.points += 10
         }
@@ -106,14 +112,15 @@ window.onload = () => {
             character.positionY < obstacle.y + obstacle.height &&
             character.positionY + character.scaledHeight > obstacle.y;
         if (obstacleCollision) {
+            screamSound.play()
             obstaclesArray.splice(obstacle, 1)
-            cancelAnimationFrame(frameCount);
+            cancelAnimationFrame(gameLoop);
             gameOver()
         }
     }
 
     function gameLoop() {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // ctx.clearRect(0, 0, canvas.width, canvas.height); ask Marco about this.
         bgImg.draw()
         character.draw()
         score.draw()
