@@ -2,7 +2,7 @@
 <a href="https://coops023.github.io/Free-Solo-viking/#">Play me!</a>
 <h1>Free Solo viking</h1>
 <h2>Description</h2>
-<p>Free Solo viking is a climbing game, where you have to scale the wall avoiding falling boulders. collect chalk so you dont get sweaty hands and receive bonus points. Dont fall, you dont have a rope.</p>
+<p>Free Solo viking is a climbing game, where you have to scale the wall avoiding falling boulders. collect meat and receive bonus points. Dont fall, you dont have a rope.</p>
 <h2>MVP</h2>
 
 <ul>

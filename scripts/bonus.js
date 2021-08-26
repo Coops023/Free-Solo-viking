@@ -1,14 +1,14 @@
 const chalkImg = document.createElement('img');
 
-chalkImg.src = 'assets/chalk.png'
+chalkImg.src = 'assets/ham.png'
 
 class Bonus {
     constructor(canvasContext, positionX, positionY, speed) {
         this.ctx = canvasContext,
             this.x = positionX,
             this.y = positionY,
-            this.width = 25,
-            this.height = 25,
+            this.width = 35,
+            this.height = 35,
             this.speed = speed
     }
 
