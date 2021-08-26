@@ -12,6 +12,7 @@
 
   #start-button, #restart-button {
       text-decoration: none;
+      text-align: center;
       color: #e5383b;
       border: 2px solid #e5383b;
       background: none;
@@ -21,6 +22,22 @@
       padding: 10px;
       font-family: 'Rampart One';
       text-transform: uppercase;
+      transition: 0.3s ease;
+  }
+
+  #start-button:hover, 
+  #restart-button:hover {
+    border-color: #e5383b;
+    color: #e5383b;
+    box-shadow: 0 0.5em 1em -0.5em #540d6e;
+  transform: translateY(-0.2em); 
+    cursor:pointer
+  }
+  #start-button:active,
+  #restart-button:active{
+    border-color: #e5383b;
+    box-shadow: 0 0 0 0 #540d6e;
+    transform: scale(0.9);
   }
 
   .bg-cloud {
@@ -53,7 +70,11 @@
     border: 2px solid #457b9d;
     border-radius: 1em;
     width: 700px;
-    height: 500px;
+    height: 600px;
+  }
+
+  .gif {
+    width: 180px;
   }
 
   #start-page h3{
@@ -67,6 +88,10 @@
   h1{
     font-size: 3rem;
     margin-top: 0;
+  }
+
+  .gameover {
+    margin-bottom: 0;
   }
 
     canvas {
@@ -84,4 +109,8 @@
   #controls {
     color: #e5383b;
     font-weight: bolder;
+  }
+
+  #final-score{
+    text-align: center;
   }

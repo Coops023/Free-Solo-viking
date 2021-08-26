@@ -5,8 +5,7 @@ window.onload = () => {
     const screamSound = new Audio('assets/screaming.mp3')
     const startSound = new Audio('assets/start.mp3')
     const bonusSound = new Audio('assets/bonus.mp3')
-
-    let character = new Character(ctx, 350, 400)
+    let character = new Character(ctx, 400, 400)
     let bgImg = new Background(ctx)
     let obstaclesArray = [];
     let bonusArray = [];
@@ -17,6 +16,7 @@ window.onload = () => {
     let startPage = document.getElementById('start-page')
     let gamePage = document.getElementById('game-page')
     let endPage = document.getElementById('end-page')
+    let finalScore = document.getElementById('final-score')
     let score = {
         points: 0,
         draw: function () {
@@ -27,6 +27,8 @@ window.onload = () => {
     };
 
 
+
+
     //event listners
     startButton.addEventListener('click', () => {
         start()
@@ -34,6 +36,7 @@ window.onload = () => {
         startSound.play()
     })
     restartButton.addEventListener('click', () => {
+        startSound.play()
         restart()
     })
 
@@ -134,6 +137,7 @@ window.onload = () => {
         character.draw()
         score.draw()
         character.move()
+        finalScore.innerText = `final score: ${score.points}`
 
         obstaclesArray.forEach((eachObstacle) => {
             eachObstacle.draw();
