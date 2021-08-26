@@ -10,7 +10,8 @@ window.onload = () => {
     let bgImg = new Background(ctx)
     let obstaclesArray = [];
     let bonusArray = [];
-
+    let obstaclesId = null;
+    let bonusId = null;
     let startButton = document.getElementById('start-button')
     let restartButton = document.getElementById('restart-button')
     let startPage = document.getElementById('start-page')
@@ -31,25 +32,6 @@ window.onload = () => {
         start()
         gameLoop()
         startSound.play()
-        obstaclesId = setInterval(function () {
-            let obstacle = new Obstacle(
-                ctx,
-                Math.random() * canvas.width - 20,
-                0,
-                Math.ceil(Math.random() * 3)
-            );
-            score.points += 1;
-            obstaclesArray.push(obstacle);
-        }, 2000);
-        bonusId = setInterval(function () {
-            let bonus = new Bonus(
-                ctx,
-                Math.random() * canvas.width,
-                0,
-                Math.ceil(Math.random() * 4)
-            );
-            bonusArray.push(bonus);
-        }, 6000);
     })
     restartButton.addEventListener('click', () => {
         restart()
@@ -69,13 +51,41 @@ window.onload = () => {
         startPage.style.display = 'none'
         gamePage.style.display = 'block'
         endPage.style.display = 'none'
+        obstaclesId = setInterval(function () {
+            let obstacle = new Obstacle(
+                ctx,
+                Math.random() * canvas.width - 20,
+                0,
+                Math.ceil(Math.random() * 2)
+            );
+            if (score.points > 50) {
+                obstacle.speed += Math.ceil(Math.random() * 3)
+            }
+            if (score.points > 100) {
+                obstacle.speed += Math.ceil(Math.random() * 4);
+            }
+            score.points += 1;
+            obstaclesArray.push(obstacle);
+        }, 2000);
+        bonusId = setInterval(function () {
+            let bonus = new Bonus(
+                ctx,
+                Math.random() * canvas.width,
+                0,
+                Math.ceil(Math.random() * 4)
+            );
+            bonusArray.push(bonus);
+        }, 6000);
     }
+
     function gameOver() {
         startPage.style.display = 'none'
         gamePage.style.display = 'none'
         endPage.style.display = 'flex'
         window.cancelAnimationFrame(gameLoop)
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        window.clearInterval(obstaclesId)
+        window.clearInterval(bonusId)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
         obstaclesArray = []
     }
 
@@ -89,7 +99,6 @@ window.onload = () => {
         obstaclesArray = []
         bonusArray = []
         start()
-
     }
 
     function bonusCheck(bonus) {
