@@ -1,10 +1,10 @@
 window.onload = () => {
 
+    const screamSound = new Audio('assets/screaming.mp3')
+    const bonusSound = new Audio('assets/bonus.mp3')
+    const gameMusic = new Audio('assets/horrible-music.mp3')
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
-    const screamSound = new Audio('assets/screaming.mp3')
-    const startSound = new Audio('assets/start.mp3')
-    const bonusSound = new Audio('assets/bonus.mp3')
     let character = new Character(ctx, 400, 400)
     let bgImg = new Background(ctx)
     let obstaclesArray = [];
@@ -26,29 +26,28 @@ window.onload = () => {
         }
     };
 
-
-
-
     //event listners
     startButton.addEventListener('click', () => {
         start()
         gameLoop()
-        startSound.play()
+        gameMusic.play();
     })
+
     restartButton.addEventListener('click', () => {
-        startSound.play()
+        gameMusic.play();
         restart()
     })
 
-    //movement key listeners
     window.addEventListener('keydown', keyDownListner, false);
     function keyDownListner(event) {
         character.keyPresses[event.key] = true;
     }
+
     window.addEventListener('keyup', keyUpListner, true);
     function keyUpListner(event) {
         character.keyPresses[event.key] = false;
     }
+
     //functions
     function start() {
         startPage.style.display = 'none'
@@ -132,11 +131,11 @@ window.onload = () => {
     }
 
     function gameLoop() {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height); ask Marco about this.
         bgImg.draw()
         character.draw()
         score.draw()
         character.move()
+
         finalScore.innerText = `final score: ${score.points}`
 
         obstaclesArray.forEach((eachObstacle) => {
@@ -145,6 +144,7 @@ window.onload = () => {
             checkCollisions(eachObstacle);
 
         });
+
         bonusArray.forEach((eachBonus) => {
             eachBonus.draw();
             eachBonus.move();
